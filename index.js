@@ -3,16 +3,25 @@ const app = express()
 const port = 3000
 const DBConnector = require('./BD/connectBD.js');
 
+app.use(express.json());
+
 app.get('/jugadores', (req, res) => {
-    DBConnector.query("SELECT * FROM Jugador").then(function (response) {
-        res.send(response)
-    }).catch(function (error) {
-        console.log(error);
-        res.send(error);
-    });
+    DBConnector.getPlayerList(res);
 })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
+app.post('/jugador', (req, res) => {
+    console.log(req.body.nombreJugador);
+    DBConnector.addPlayer(req.body , res);
+})
+
+app.put('/jugador/:id', (req, res) => {
+    DBConnector.modifyPlayer(req.params.id, req.body, res);
+});
+
+app.delete('/jugador/:id', (req, res) => {
+    DBConnector.deletePlayer(req.params.id , res);
+})

@@ -14,7 +14,6 @@ app.listen(port, () => {
 })
 
 app.post('/jugador', (req, res) => {
-    console.log(req.body.nombreJugador);
     DBConnector.addPlayer(req.body , res);
 })
 

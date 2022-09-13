@@ -36,7 +36,7 @@ class DBConnector {
     VALUES ('${data.nombreJugador}' , ${data.idEquipo});`, response);
   }
 
-  modifyPlayer(idPlayer , data, response) {
+  modifyPlayer(idPlayer, data, response) {
     this.ejectQuery(`UPDATE Jugador SET nombreJugador = '${data.nombreJugador}',
     idEquipo = ${data.idEquipo}
     WHERE id = ${idPlayer};`, response);
@@ -61,10 +61,10 @@ class DBConnector {
    */
   ejectQuery(query, res) {
     this.query(query).then(function (response) {
-      res.json(response);//ERROR
+      res.send(response.toString());//Parcialmente solucionado
     }).catch(function (error) {
       console.log(error);
-      res.json(error);//ERROR
+      res.send(error.toString());//Parcialmente Solucionado
     });
   }
 

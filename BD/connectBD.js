@@ -33,7 +33,7 @@ class DBConnector {
    */
   addPlayer(data, response) {
     this.ejectQuery(`INSERT INTO Jugador (nombreJugador, idEquipo)
-    VALUES ('${player_data.nombreJugador}' , ${player_data.idEquipo});`, response);
+    VALUES ('${data.nombreJugador}' , ${data.idEquipo});`, response);
   }
 
   modifyPlayer(idPlayer , data, response) {

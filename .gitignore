@@ -1,5 +1,5 @@
 #variables de entorno
-.env
+
 #Modulos de node
 node_modules/
 #Cahche npm

@@ -1,4 +1,6 @@
 const mariadb = require('mariadb');
+const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const config = {
   host: 'localhost',
@@ -46,12 +48,43 @@ class DBConnector {
     this.ejectQuery(`DELETE FROM Jugador WHERE id = ${idPlayer};`, response);
   }
 
+  validatePassword(nombreUsuario, password, res) {
+    this.query(`SELECT nombreUsuario, password FROM Usuario 
+    WHERE nombreUsuario = '${nombreUsuario}' AND password = MD5('${password}');`).then(response => {
+      if (JSON.stringify(response) != "[]") {
+        var user = {usernme: nombreUsuario};
+        var accesToken = this.generateAccesToken(user);
+        res.send("Login Correcto, tu token es: " + accesToken + " expira en 5 minutos");
+      } else {
+        res.send('Usuario o contrasena incorrectos');
+      }
+    });
+  }
+
+  generateAccesToken(nombreUsuario) {
+    return jwt.sign(nombreUsuario , process.env.SECRET , {expiresIn: '5m'});
+  }
+
+  validateToken(req, res, next) {
+    var accesToken = req.headers['authorization'];
+    if( ! accesToken) {
+      res.send('Acceso denegado');
+    }
+    jwt.verify(accesToken, process.env.SECRET, (err, user) => {
+      if(err){
+        res.send('El token ha expirado o es incorrecto');
+      }else {
+        next();
+      }
+    });
+  }
   /**
    * 
    * @param {*} response 
    */
   getPlayerList(response) {
     this.ejectQuery("SELECT * FROM Jugador", response);
+
   }
 
   /**
@@ -60,11 +93,10 @@ class DBConnector {
    * @param {*} res 
    */
   ejectQuery(query, res) {
-    this.query(query).then(function (response) {
-      res.send(response.toString());//Parcialmente solucionado
-    }).catch(function (error) {
-      console.log(error);
-      res.send(error.toString());//Parcialmente Solucionado
+    this.query(query).then(response => {
+      var result = JSON.stringify(response, (_, v) => typeof v === 'bigint' ? `${v}n` : v)
+      .replace(/"(-?\d+)n"/g, (_, a) => a);
+      res.send(result);
     });
   }
 

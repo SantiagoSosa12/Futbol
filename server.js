@@ -27,6 +27,9 @@ app.delete('/jugador/:id', DBConnector.validateToken ,(req, res) => {
     DBConnector.deletePlayer(req.params.id , res);
 })
 
+/**
+ * Desde aqui se puede obtener el token para un usuario registrado en la DB
+ */
 app.post('/login', (req, res) => {
     DBConnector.validatePassword(req.body.nombreUsuario, req.body.password, res);
 })

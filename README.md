@@ -15,3 +15,8 @@ Para iniciar el programa ejecute el siguiente comando
 ```
 npm run start
 ```
+
+Para realizar las operaciones CRUD debera: 
+
+- Obtener un *token* en la ruta: */login*
+- Incluir un encabezado de *Autorizathion* con el token genrado en el paso anterior

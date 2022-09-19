@@ -47,14 +47,41 @@ class DBConnector {
   deletePlayer(idPlayer, response) {
     this.ejectQuery(`DELETE FROM Jugador WHERE id = ${idPlayer};`, response);
   }
+   /**
+   * 
+   * @param {*} response 
+   */
+    getPlayerList(response) {
+      this.ejectQuery("SELECT * FROM Jugador", response);
+  
+    }
 
+/* Crud of Team */
+
+  addTeam(data, response) {
+    this.ejectQuery(`INSERT INTO Equipo (nombreEquipo)
+    VALUES ( '${data.nombreEquipo}' );`, response);
+  }
+  modifyTeam(idTeam , data, response) {
+    this.ejectQuery(`UPDATE Equipo SET nombreEquipo= '${data.nombreEquipo}'
+    WHERE id = ${idTeam};`, response);
+  }
+
+  deleteTeam(idTeam, response) {
+    this.ejectQuery(`DELETE FROM Equipo WHERE id = ${idTeam};`, response);
+  }
+  getTeamList(response) {
+    this.ejectQuery("SELECT * FROM Equipo", response);
+  }
+
+/* Validacion de usuario*/
   validatePassword(nombreUsuario, password, res) {
     this.query(`SELECT nombreUsuario, password FROM Usuario 
     WHERE nombreUsuario = '${nombreUsuario}' AND password = MD5('${password}');`).then(response => {
       if (JSON.stringify(response) != "[]") {
         var user = {usernme: nombreUsuario};
         var accesToken = this.generateAccesToken(user);
-        res.send("Login Correcto, tu token es: " + accesToken + " expira en 5 minutos");
+        res.send("Login Correcto, tu token es: " + accesToken + " expira en 15 minutos");
       } else {
         res.send('Usuario o contrasena incorrectos');
       }
@@ -62,7 +89,7 @@ class DBConnector {
   }
 
   generateAccesToken(nombreUsuario) {
-    return jwt.sign(nombreUsuario , process.env.SECRET , {expiresIn: '5m'});
+    return jwt.sign(nombreUsuario , process.env.SECRET , {expiresIn: '15m'});
   }
 
   validateToken(req, res, next) {
@@ -78,14 +105,7 @@ class DBConnector {
       }
     });
   }
-  /**
-   * 
-   * @param {*} response 
-   */
-  getPlayerList(response) {
-    this.ejectQuery("SELECT * FROM Jugador", response);
-
-  }
+ 
 
   /**
    * Ejecuta la promesa con la query y da una respuesta

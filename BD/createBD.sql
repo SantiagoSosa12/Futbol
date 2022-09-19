@@ -1,3 +1,22 @@
+/* Creo Base de Datos para el WebServer */
+CREATE DATABASE `futbol`;
+
+/* Creo el usuario para esta prueba publica */
+CREATE USER 'santiago' IDENTIFIED BY 'a123';
+
+/* Le concedo permisos para conectarse */
+GRANT USAGE ON *.* TO 'santiago'@localhost IDENTIFIED BY 'a123';
+
+/* Se le da acceso al usuario a la Base de Datos */
+GRANT ALL privileges ON `futbol`.* TO 'santiago'@localhost;
+
+/* Aplico los cambios */
+FLUSH PRIVILEGES;
+
+/* Selecciono la Base de Datos */
+USE futbol;
+
+/* Creacion de tablas de la base de datos*/
 CREATE TABLE Equipo (
     id int NOT NULL AUTO_INCREMENT,
     nombreEquipo varchar (255) NOT NULL,
@@ -17,6 +36,8 @@ CREATE TABLE Usuario (
     password varchar (255) NOT NULL
 );
 
+/* Insertar datos a la  Base de Datos */
+
 INSERT INTO Usuario(nombreUsuario, password)
 VALUES ('Jose' , MD5('pktgd25'));
 
@@ -26,6 +47,9 @@ VALUES ('Arsenal');
 INSERT INTO Jugador (nombreJugador, idEquipo)
 VALUES ('Gabriel Jesus' , 1);
 
+
+/* Muestro los datos */
+SELECT * FROM Jugador;
 
 /*
 Calcula una suma de comprobación MD5 de 128 bits para la cadena. El valor se devuelve como una cadena de 32 dígitos hexadecimales, o NULLsi el argumento fuera NULL. El valor de retorno puede, por ejemplo, ser utilizado como clave hash. Véanse las notas al principio de este sección sobre el almacenamiento de valores hash de manera eficiente.

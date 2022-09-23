@@ -3,10 +3,10 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const config = {
-  host: 'localhost',
-  user: 'santiago',
-  password: 'a123',
-  database: 'futbol',
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
   connectionLimit: 5,
   acquireTimeout: 300
 }

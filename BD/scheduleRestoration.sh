@@ -26,15 +26,8 @@ longitudArray=${#credenciales[@]}
 
 if [ $longitudArray -eq 4 ]
 then
-    userName=$(whoami)
-    #echo 'date=$(date +"%d-%b-%Y")' >> /etc/crontab
-    #date=$(date +"%d-%b-%Y")
-    #echo "la fecha es: $date"
     echo "@monthly $userName mysqldump --user=$user --password=$password $dbName > $backup_path/$dbName\`date \"+\%d-\%b-\%Y\"\`.sql" >> /etc/crontab
     echo "El backup se realizara mensualmente para el usuario: $user en la base de datos: $dbName"
 else
     echo "ERROR: Faltan argumentos en su variable de entorno o al ejecutar este archivo"
 fi
-
-
-

@@ -20,3 +20,10 @@ Para realizar las operaciones CRUD debera:
 
 - Obtener un *token* en la ruta: */login*
 - Incluir un encabezado de *Autorizathion* con el token genrado en el paso anterior
+
+La Base de datos hace un respaldo automatico cada mes
+Para que esto suceda debera dirijirse a la carpeta BD dentro de este proyecto
+y ejecutar el siguiente comando
+```
+sudo bash scheduleRestoration.sh DIRECTORIO_DE_RESPALDO
+```

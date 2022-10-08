@@ -2,13 +2,13 @@
 CREATE DATABASE `futbol`;
 
 /* Creo el usuario para esta prueba publica */
-CREATE USER 'santiago' IDENTIFIED BY 'a123';
+CREATE USER 'jose' IDENTIFIED BY 'p587';
 
 /* Le concedo permisos para conectarse */
-GRANT USAGE ON *.* TO 'santiago'@localhost IDENTIFIED BY 'a123';
+GRANT USAGE ON *.* TO 'jose'@localhost IDENTIFIED BY 'p587';
 
 /* Se le da acceso al usuario a la Base de Datos */
-GRANT ALL privileges ON `futbol`.* TO 'santiago'@localhost;
+GRANT ALL privileges ON `futbol`.* TO 'jose'@localhost;
 
 /* Aplico los cambios */
 FLUSH PRIVILEGES;

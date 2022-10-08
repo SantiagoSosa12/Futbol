@@ -15,21 +15,23 @@ function recortar(){
 #Datos necesarios para el respaldo
 user=$(recortar USER)
 password=$(recortar PASSWORD)
-host=$(recortar HOST)
 dbName=$(recortar DATABASE)
 
 # Otras opciones
 backup_path=$1
-date=$(date +"%d-%b-%Y")
  
-credenciales=($user $password $host $dbName $backup_path $date)
+credenciales=($user $password $dbName $backup_path)
 
 longitudArray=${#credenciales[@]}
 
-if [ $longitudArray -eq 6 ]
+if [ $longitudArray -eq 4 ]
 then
-    echo "No falta ningun parametro"
-    #echo "@monthly mysqldump --user=$user --password=$password --host=$host $db_name > $backup_path/$db_name-$date.sql" >> /usr/bin/crontab
+    userName=$(whoami)
+    #echo 'date=$(date +"%d-%b-%Y")' >> /etc/crontab
+    #date=$(date +"%d-%b-%Y")
+    #echo "la fecha es: $date"
+    echo "@monthly $userName mysqldump --user=$user --password=$password $dbName > $backup_path/$dbName\`date \"+\%d-\%b-\%Y\"\`.sql" >> /etc/crontab
+    echo "El backup se realizara mensualmente para el usuario: $user en la base de datos: $dbName"
 else
     echo "ERROR: Faltan argumentos en su variable de entorno o al ejecutar este archivo"
 fi

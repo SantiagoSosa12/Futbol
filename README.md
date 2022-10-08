@@ -2,6 +2,18 @@
 
 API de jugadores y clubes especificamente de la Premier League
 
+Para aaceder a la base de datos recuerde crear su archivo .env 
+a continuacion un ejemplo:
+
+```
+SECRET=ijyfk 
+HOST='localhost',
+USER='pedroPicapiedra',
+PASSWORD='qwev56tgt',
+DATABASE='futbol',
+```
+
+
 Para el proyecto instale las dependencias con el siguiente comando
 ```
 npm install 

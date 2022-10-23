@@ -57,3 +57,7 @@ Para tener una Base de datos mas segura ejecute el siguiente comando:
 ```
 sudo mysql_secure_installation
 ```
+
+Si desea generar logs en su base de datos siga los pasos: 
+https://gist.github.com/joseluisq/40ec9169669aa1848492141fa6f57fcb
+

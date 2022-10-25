@@ -88,10 +88,12 @@ class DBConnector {
   validatePassword(nombreUsuario, password, res) {
     this.query(`SELECT nombreUsuario, password FROM Usuario 
     WHERE nombreUsuario = '${nombreUsuario}' AND password = MD5('${password}');`).then(response => {
-      if (JSON.stringify(response) != "[]") {
-        var user = { usernme: nombreUsuario };
-        var accesToken = this.generateAccesToken(user);
-        res.send("Login Correcto, tu token es: " + accesToken + " expira en 15 minutos");
+      if (response[0] != undefined) {
+        if (response[0]["nombreUsuario"] == nombreUsuario) {
+          var user = { usernme: nombreUsuario };
+          var accesToken = this.generateAccesToken(user);
+          res.send("Login Correcto, tu token es: " + accesToken + " expira en 15 minutos");
+        }
       } else {
         res.send('Usuario o contrasena incorrectos');
       }

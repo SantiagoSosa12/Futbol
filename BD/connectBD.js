@@ -2,6 +2,10 @@ const mariadb = require('mariadb');
 const jwt = require('jsonwebtoken');
 require('dotenv').config()
 
+/**
+ * OJO verificar que las variables de entorno esten bien escritas
+ * ya que puede surgir el error: ER_GET_CONNECTION_TIMEOUT
+ */
 const config = {
   host: process.env.HOST,
   user: process.env.USER,

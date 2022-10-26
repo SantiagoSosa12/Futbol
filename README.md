@@ -7,10 +7,10 @@ a continuacion un ejemplo:
 
 ```
 SECRET=ijyfk 
-HOST='localhost',
-USER='pedroPicapiedra',
-PASSWORD='qwev56tgt',
-DATABASE='futbol',
+HOST='localhost'
+USER='pedroPicapiedra'
+PASSWORD='qwev56tgt'
+DATABASE='futbol'
 ```
 
 -----------------------
